@@ -12,4 +12,17 @@ public interface Predicate<T> {
         Objects.requireNonNull(other);
         return (t) ->test(t) && other.test(t);
     }
+
+    //与关系运算符"!"相似，对判断进行反取
+    default Predicate<T> negate(){
+        return (t) ->!test(t);
+    }
+
+    //or方法与关系型运算符"||"，两边只要有一个成立就返回true
+    default Predicate<T> or(Predicate<? super T> other){
+        Objects.requireNonNull(other);
+        return t -> test(t) || other.test(t);
+    }
+
+
 }
